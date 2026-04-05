@@ -1,0 +1,56 @@
+{
+  "name": "astlog",
+  "version": "0.1.0",
+  "description": "Changelog from code, not commits. AST-based API surface diffing for TypeScript.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "astlog": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix && prettier --write src/ tests/ fixtures/",
+    "format": "prettier --write src/ tests/ fixtures/",
+    "format:check": "prettier --check src/ tests/ fixtures/",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "changelog",
+    "ast",
+    "typescript",
+    "semver",
+    "diff",
+    "api-surface",
+    "breaking-changes"
+  ],
+  "author": "Andy Deng",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andydeng/astlog"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.7.0"
+  },
+  "dependencies": {
+    "cac": "^6.7.14"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "eslint": "^10.2.0",
+    "prettier": "^3.8.1",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
+  }
+}
