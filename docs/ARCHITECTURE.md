@@ -19,7 +19,7 @@ src/
   classify.ts   — Change[] -> ClassifiedChange[] (semver levels)
   format.ts     — ChangelogResult -> markdown or JSON string
   types.ts      — All shared contracts
-  errors.ts     — Typed error union (AstlogError)
+  errors.ts     — Typed error union (SigdiffError)
   index.ts      — Barrel export for programmatic API
 ```
 
@@ -64,7 +64,7 @@ interface ChangelogResult {
 
 **Signature as string.** `ExportedSymbol.signature` is a canonical string, not raw AST nodes. Diff comparison is string equality. Signatures are normalized at extraction time (whitespace collapsed, semicolons standardized, index signatures canonicalized to `Record<>`).
 
-**Validate at boundaries only.** `cli.ts` validates args and catches `AstlogException`. Internal functions (`diff`, `classify`, `format`) trust typed inputs — no defensive checks.
+**Validate at boundaries only.** `cli.ts` validates args and catches `SigdiffException`. Internal functions (`diff`, `classify`, `format`) trust typed inputs — no defensive checks.
 
 **Arrow function detection.** `const fn = () => ...` is classified as `"function"` kind, not `"constant"`. The extractor checks if a variable declaration's type has call signatures.
 
@@ -79,7 +79,7 @@ interface ChangelogResult {
 ## Error Handling
 
 ```typescript
-type AstlogError =
+type SigdiffError =
   | { code: 'INVALID_REF'; message: string }
   | { code: 'NO_TAGS'; message: string }
   | { code: 'NO_TYPESCRIPT'; message: string }
@@ -87,7 +87,7 @@ type AstlogError =
   | { code: 'NOT_GIT_REPO'; message: string };
 ```
 
-Library code throws `AstlogException`. Only `cli.ts` calls `process.exit`.
+Library code throws `SigdiffException`. Only `cli.ts` calls `process.exit`.
 
 ## Semver Classification Rules
 

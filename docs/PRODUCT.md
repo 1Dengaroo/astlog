@@ -1,4 +1,4 @@
-# astlog — Changelog from code, not commits
+# sigdiff — Changelog from code, not commits
 
 ## Problem
 
@@ -10,7 +10,7 @@ Every existing changelog tool (conventional-changelog, changesets, release-it, a
 
 ## Solution
 
-`astlog` reads what the code actually did. Your exported functions, types, and interfaces _are_ your API contract. If a function signature changed, that's a breaking change — regardless of what the commit message says.
+`sigdiff` reads what the code actually did. Your exported functions, types, and interfaces _are_ your API contract. If a function signature changed, that's a breaking change — regardless of what the commit message says.
 
 ```
 git ref A --> TS Compiler API --> API Surface A --\
@@ -22,16 +22,16 @@ git ref B --> TS Compiler API --> API Surface B --/
 
 ```bash
 # Compare last tag to HEAD
-npx astlog
+npx sigdiff
 
 # Compare two specific refs
-npx astlog v1.2.0..v1.3.0
+npx sigdiff v1.2.0..v1.3.0
 
 # Scope to barrel export only
-npx astlog --entrypoint src/index.ts
+npx sigdiff --entrypoint src/index.ts
 
 # Machine-readable output
-npx astlog --json
+npx sigdiff --json
 ```
 
 ## Example Output
@@ -52,7 +52,7 @@ npx astlog --json
 
 ### In
 
-- Single command: `astlog <ref>..<ref>` (defaults to last tag..HEAD)
+- Single command: `sigdiff <ref>..<ref>` (defaults to last tag..HEAD)
 - TypeScript files only (`.ts`, `.tsx`)
 - Detect exports: functions, interfaces, type aliases, enums, classes, constants
 - Diff: added / removed / signature-changed
@@ -60,7 +60,7 @@ npx astlog --json
 - Output: markdown (default) and `--json`
 - Zero config — works out of the box on any TS project
 - `--entrypoint` flag to scope to specific files
-- Programmatic API: `import { extract, diff, classify, format } from 'astlog'`
+- Programmatic API: `import { extract, diff, classify, format } from 'sigdiff'`
 
 ### Out of Scope
 
@@ -74,8 +74,8 @@ npx astlog --json
 
 ## Design Philosophy
 
-- Zero config. No `.astlogrc`, no `astlog.config.js`.
+- Zero config. No `.sigdiffrc`, no `sigdiff.config.js`.
 - Tiny dependency footprint. `typescript` as a peer dep and `cac` for CLI parsing.
 - One command, one output.
 - Composable — generates a changelog, doesn't manage releases. Pipe its output wherever you want.
-- Adopt in 30 seconds: `npx astlog` and you're done.
+- Adopt in 30 seconds: `npx sigdiff` and you're done.

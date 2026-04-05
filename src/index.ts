@@ -2,7 +2,7 @@ export { extract } from './extract';
 export { diff } from './diff';
 export { classify } from './classify';
 export { buildResult, format } from './format';
-export { AstlogException } from './errors';
+export { SigdiffException } from './errors';
 
 export type {
   ApiSurface,
@@ -14,4 +14,4 @@ export type {
   SymbolKind
 } from './types';
 
-export type { AstlogError } from './errors';
+export type { SigdiffError } from './errors';
