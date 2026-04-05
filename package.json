@@ -1,11 +1,11 @@
 {
-  "name": "astlog",
+  "name": "sigdiff",
   "version": "0.1.0",
   "description": "Changelog from code, not commits. AST-based API surface diffing for TypeScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "astlog": "dist/cli.js"
+    "sigdiff": "dist/cli.js"
   },
   "files": [
     "dist"
@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andydeng/astlog"
+    "url": "https://github.com/1dengaroo/sigdiff"
   },
   "engines": {
     "node": ">=18"

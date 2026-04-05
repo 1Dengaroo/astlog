@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # full history for astlog git refs
+          fetch-depth: 0 # full history for sigdiff git refs
 
       - uses: actions/setup-node@v4
         with:

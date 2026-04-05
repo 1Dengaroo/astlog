@@ -2,7 +2,7 @@ import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import { AstlogException } from './errors';
+import { SigdiffException } from './errors';
 import { extract } from './extract';
 import { ApiSurface, ExportedSymbol } from './types';
 
@@ -10,9 +10,9 @@ export function assertGitRepo(): void {
   try {
     execSync('git rev-parse --git-dir', { stdio: 'ignore' });
   } catch {
-    throw new AstlogException({
+    throw new SigdiffException({
       code: 'NOT_GIT_REPO',
-      message: 'Not a git repository. Run astlog from inside a git repo.'
+      message: 'Not a git repository. Run sigdiff from inside a git repo.'
     });
   }
 }
@@ -24,7 +24,7 @@ export function resolveRefs(rangeArg?: string): {
   if (rangeArg) {
     const parts = rangeArg.split('..');
     if (parts.length !== 2 || !parts[0] || !parts[1]) {
-      throw new AstlogException({
+      throw new SigdiffException({
         code: 'INVALID_REF',
         message: `Invalid range format: "${rangeArg}". Expected format: <ref>..<ref>`
       });
@@ -40,9 +40,9 @@ export function resolveRefs(rangeArg?: string): {
       encoding: 'utf-8'
     }).trim();
   } catch {
-    throw new AstlogException({
+    throw new SigdiffException({
       code: 'NO_TAGS',
-      message: 'No git tags found. Provide an explicit range: astlog <ref>..<ref>'
+      message: 'No git tags found. Provide an explicit range: sigdiff <ref>..<ref>'
     });
   }
 
@@ -53,13 +53,13 @@ export function extractAtRef(ref: string, entrypoint?: string): ApiSurface {
   const files = discoverFiles(ref, entrypoint);
 
   if (files.length === 0) {
-    throw new AstlogException({
+    throw new SigdiffException({
       code: 'NO_TYPESCRIPT',
       message: `No TypeScript files found at ref "${ref}".`
     });
   }
 
-  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astlog-'));
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sigdiff-'));
 
   try {
     const pathMap = new Map<string, string>();
@@ -89,7 +89,7 @@ function validateRef(ref: string): void {
   try {
     execSync(`git rev-parse --verify ${ref}`, { stdio: 'ignore' });
   } catch {
-    throw new AstlogException({
+    throw new SigdiffException({
       code: 'INVALID_REF',
       message: `Git ref "${ref}" does not exist.`
     });

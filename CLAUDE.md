@@ -1,4 +1,4 @@
-# astlog
+# sigdiff
 
 Zero-config CLI that diffs the public API surface of a TypeScript project between two git refs and outputs a structured changelog.
 
@@ -20,7 +20,7 @@ src/
   diff.ts       — Two ApiSurfaces -> Change[]
   classify.ts   — Change -> SemverLevel
   format.ts     — ChangelogResult -> markdown or JSON
-  errors.ts     — Typed error union (AstlogError)
+  errors.ts     — Typed error union (SigdiffError)
   git.ts        — Read files at git refs, temp file management
   cli.ts        — Entry point, arg parsing, error boundary
   index.ts      — Barrel export for programmatic API
@@ -32,11 +32,11 @@ src/
 - **Discriminated unions over optional fields.** Each `Change` variant carries exactly its data.
 - **Validate at boundaries only.** CLI validates args. Internal functions trust typed inputs.
 - **Each function is independently useful.** `extract`, `diff`, `classify`, `format` are composable.
-- **Consistent error format.** Library code throws `AstlogException`, never calls `process.exit`.
+- **Consistent error format.** Library code throws `SigdiffException`, never calls `process.exit`.
 
 ## Conventions
 
-- Zero config — no `.astlogrc`, no config files
+- Zero config — no config files
 - `typescript` is a peer dep, `cac` for CLI parsing — that's it
 - `ExportedSymbol.signature` is a normalized string — comparison happens on strings, not AST nodes
 - `ApiSurface.symbols` keyed by `filePath:name` for cross-file uniqueness

@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 import cac from 'cac';
-import { AstlogException } from './errors';
+import { SigdiffException } from './errors';
 import { assertGitRepo, extractAtRef, resolveRefs } from './git';
 import { diff } from './diff';
 import { classify } from './classify';
 import { buildResult, format } from './format';
 
-const cli = cac('astlog');
+const cli = cac('sigdiff');
 
 cli
   .command('[range]', 'Diff the public API surface between two git refs')
@@ -28,7 +28,7 @@ cli
 
       process.stdout.write(output);
     } catch (err) {
-      if (err instanceof AstlogException) {
+      if (err instanceof SigdiffException) {
         process.stderr.write(`Error: ${err.error.message}\n`);
         process.exit(1);
       }

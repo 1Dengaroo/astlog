@@ -1,29 +1,29 @@
-# astlog
+# sigdiff
 
 Diffs the public API surface of a TypeScript project between two git refs and outputs a structured changelog.
 
 ```bash
-npx astlog v1.0.0..v2.0.0
+npx sigdiff v1.0.0..v2.0.0
 ```
 
 ## Why
 
-Commit messages are a human interpretation of a change — imprecise, incomplete, or missing entirely. `astlog` adds a second perspective: what the code actually exported. It catches things commit messages miss, like a signature change buried in a large PR.
+Commit messages are a human interpretation of a change — imprecise, incomplete, or missing entirely. `sigdiff` adds a second perspective: what the code actually exported. It catches things commit messages miss, like a signature change buried in a large PR.
 
 ## Usage
 
 ```bash
 # Compare last tag to HEAD
-npx astlog
+npx sigdiff
 
 # Compare two refs
-npx astlog v1.0.0..v2.0.0
+npx sigdiff v1.0.0..v2.0.0
 
 # Scope to a specific entrypoint
-npx astlog --entrypoint src/index.ts
+npx sigdiff --entrypoint src/index.ts
 
 # JSON output
-npx astlog --json
+npx sigdiff --json
 ```
 
 ## What it detects
@@ -51,7 +51,7 @@ Suggested version bump: major
 ## Programmatic API
 
 ```typescript
-import { extract, diff, classify, buildResult, format } from 'astlog';
+import { extract, diff, classify, buildResult, format } from 'sigdiff';
 
 const before = extract(['src/v1/index.ts']);
 const after = extract(['src/v2/index.ts']);
