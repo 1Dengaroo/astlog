@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import cac from 'cac';
+import { version as pkgVersion } from '../package.json';
 import { SigdiffException } from './errors';
 import { assertGitRepo, extractAtRef, resolveRefs } from './git';
 import { diff } from './diff';
@@ -37,5 +38,5 @@ cli
   });
 
 cli.help();
-cli.version('0.1.0');
+cli.version(pkgVersion);
 cli.parse();
