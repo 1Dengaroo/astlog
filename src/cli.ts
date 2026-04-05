@@ -14,7 +14,9 @@ cli
   .command('[range]', 'Diff the public API surface between two git refs')
   .option('--entrypoint <path>', 'Scope to a specific file')
   .option('--json', 'Output as JSON instead of markdown')
-  .action((range: string | undefined, options: { entrypoint?: string; json?: boolean }) => {
+  .option('--check', 'Exit with code 1 if breaking changes are detected')
+  .action(
+    (range: string | undefined, options: { entrypoint?: string; json?: boolean; check?: boolean }) => {
     try {
       assertGitRepo();
 
@@ -28,6 +30,10 @@ cli
       const output = format(result, { json: options.json });
 
       process.stdout.write(output);
+
+      if (options.check && result.breaking.length > 0) {
+        process.exit(1);
+      }
     } catch (err) {
       if (err instanceof SigdiffException) {
         process.stderr.write(`Error: ${err.error.message}\n`);
@@ -35,7 +41,8 @@ cli
       }
       throw err;
     }
-  });
+  },
+);
 
 cli.help();
 cli.version(pkgVersion);

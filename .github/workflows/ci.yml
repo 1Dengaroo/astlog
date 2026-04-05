@@ -40,4 +40,4 @@ jobs:
           BASE_REF="origin/${{ github.base_ref }}"
           HEAD_REF="HEAD"
           echo "Comparing API surface: $BASE_REF..$HEAD_REF"
-          node dist/cli.js "$BASE_REF..$HEAD_REF" --entrypoint src/index.ts || true
+          node dist/cli.js "$BASE_REF..$HEAD_REF" --entrypoint src/index.ts --check

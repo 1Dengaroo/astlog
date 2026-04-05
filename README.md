@@ -33,6 +33,9 @@ npx sigdiff --entrypoint src/index.ts
 
 # JSON output
 npx sigdiff --json
+
+# Exit with code 1 if breaking changes are detected (useful for CI)
+npx sigdiff --check
 ```
 
 ## Example output
@@ -66,6 +69,18 @@ Changes are classified as `major`, `minor`, or `patch` per semver rules.
 | Changelog output      | Yes             | Yes                     | Yes                  | No              |
 | Config required       | None            | Yes                     | Yes                  | Yes             |
 | Git ref comparison    | Any ref         | N/A                     | N/A                  | Baseline file   |
+
+## CI integration
+
+Use `--check` to fail your pipeline when breaking changes are introduced:
+
+```yaml
+# .github/workflows/ci.yml
+- name: API surface check
+  run: npx sigdiff origin/main..HEAD --entrypoint src/index.ts --check
+```
+
+Without `--check`, sigdiff always exits 0 and just prints the diff. With `--check`, it exits 1 if any breaking changes are detected, making it easy to gate PRs.
 
 ## Programmatic API
 
