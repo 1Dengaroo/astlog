@@ -1,6 +1,6 @@
 {
   "name": "sigdiff",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Changelog from code, not commits. AST-based API surface diffing for TypeScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
