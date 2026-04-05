@@ -16,8 +16,13 @@ Commit messages are a human interpretation of a change — imprecise, incomplete
 # Compare last tag to HEAD
 npx sigdiff
 
-# Compare two refs
+# Compare two tags
 npx sigdiff v1.0.0..v2.0.0
+
+# Any git ref works: branches, commits, relative refs
+npx sigdiff main..feature-branch
+npx sigdiff abc1234..def5678
+npx sigdiff HEAD~5..HEAD
 
 # Scope to a specific entrypoint
 npx sigdiff --entrypoint src/index.ts
